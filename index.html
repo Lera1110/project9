@@ -3,75 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drone Map NSK</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>DRONE MAP NSK</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div class="app-container">
-        <header class="main-header">
-        <nav class="navigation">
-            <a href="#map-route" class="nav-link active">DRONE MAP NSK Карта</a> |
-            <a href="#rules-route" class="nav-link">Правила полетов</a> |
-            <a href="#about-route" class="nav-link">О проекте</a>
-        </nav>
-        <h1 class="main-title">Найди безопасную зону для полета</h1>
-        <p class="subtitle">Карта зон и условий полетов на дроне</p>
-    </header>
 
-    <main id="map-route" class="tab-content active-tab">
-        <div class="content-columns">
-            <aside class="sidebar">
-                <div class="filters-card">
-                    <h3>Фильтры</h3>
-                <ul>
-                    <li><span class="status-dot red"></span> Запрещено</li>
-                    <li><span class="status-dot yellow"></span> Ограничения</li>
-                    <li><span class="status-dot green"></span> Рекомендовано</li>
-                </ul>
-            </div>
-            <div class="info-card">
-                <h3>Информация о выбранной зоне</h3>
-            </div>
+        <aside class="left-icon-menu">
+            <button class="menu-btn"></button>
+            <button class="menu-btn"></button>
+            <button class="menu-btn"></button>
         </aside>
 
-        <section class="map-container">
-            <div class="map-placeholder">
-                <p>Интерактивная карта </p>
+        <section class="side-panel-left">
+
+            <div class="card logo-card">
+             <h2>DRONE MAP NSK</h2>
+              <p>Карта зон для полетов по Новосибирску</p>
             </div>
+
+            <div class="card parameters-card">
+                <h3>Параметры карты</h3>
+                <ul class="parameter-list">
+                    <li>Запрещенные зоны</li>
+                    <li>Ограничения</li>
+                    <li>Рекомендованные</li>
+                </ul>
+            </div>
+
+            <div class="card tip-card">
+                <h4>Подсказка</h4>
+                <p>Нажмите на зону на карте, чтобы увидеть подробности.</p>
+                <ul class="color-legend">
+                    <li><span class="dot-red"></span> <strong>красным</strong> обозначены запрещенные зоны,</li>
+                    <li><span class="dot-yellow"></span> <strong>желтые</strong> - ограничения,</li>
+                    <li><span class="dot-green"></span> <strong>зеленые</strong> - рекомендованные.</li>
+                </ul>
+            </div>
+
+            <div class="card safety-card">
+                <h3>Летайте безопасно</h3>
+                <a href="#" class="safety-link">Узнать о правилах полета</a>
+            </div>
+
         </section>
+        </main>
+
+        <aside class="side-panel-right">
+
+            <div class="info-header-block">
+                <h3>Информация о выбранной зоне</h3>
+            </div>
+
+            <div class="info-body-block">
+                <p class="info-status-text">Точка выбранна/нет</p>
+                <p class="info-subtext">Нажмите на карту или найдите адрес (если нет)</p>
+
+                <hr class="separator-line">
+
+                <p class="info-status-text">Информация о выбранной зоне</p>
+                <p class="info-subtext">Выберите зону, чтобы узнать подробнее</p>
+
+                <div class="reason-hashtag">
+                    можно ли летать
+                </div>
+            </div>
+
+        </aside>
+
     </div>
-</main>
-
-<section id="rules-route" class="tab-content" style="display: none;">
-    <h2>Правила полетов на БПЛА</h2>
-    <div class="rules-section">
-        <h3>1. Учет и регистрация дрона</h3>
-        <p>Все беспилотники весом от 150 грамм до 30 кг необходимо обязательно зарегистрировать в Росавиации в течение 10 рабочих дней после покупки.</p>
-
-        <h3>2. Основные правила безопасности</h3>
-        <ul>
-            <li>Разрешено летать в светлое время суток и в пределах прямой видимости.</li>
-            <li>Максимальная разрешенная высота для полетов без специального разрешения — 150 метров.</li>
-            <li>Категорически запрещено летать над людьми, массовыми мероприятиями, военными объектами и охраняемыми зонами.</li>
-        </ul>
-
-        <h3>3. Полеты в черте города</h3>
-        <p>Для запуска дрона внутри населенного пункта (включая Новосибирск) всегда требуется официальное разрешение от местной администрации.</p>
-    </div>
-</section>
-
-<section id="about-route" class="tab-content" style="display: none;">
-    <h2>О проекте</h2>
-    <p>Информационный сервис Drone Map NSK создан для пилотов БПЛА, чтобы помочь быстро находить открытые зоны и избегать штрафов при полетах в Новосибирской области.</p>
-</section>
-
-<footer class="main-footer">
-    <div class="footer-block">DRONE MAP NSK · Информация о зонах для полетов</div>
-    <div class="footer-block">Правила полетов</div>
-    <div class="footer-block">Краткая информация о проекте для пользователя</div>
-    </footer>
-</div>
-
 </body>
 </html>
