@@ -6,8 +6,8 @@
 }
 
 body {
-    background-color: #dcdcd8;
-    color: #000000;
+    background-color: #eef2f5;
+    color: #1e293b;
     height: 100vh;
     overflow: hidden;
 }
@@ -36,10 +36,15 @@ body {
     border: none;
     font-size: 22px;
     cursor: pointer;
-    color: #4b4b4b;
+    color: #64748b;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: color 0.2s;
+}
+
+.menu-btn:hover {
+    color: #0d485c;
 }
 
 .side-panel-left {
@@ -50,9 +55,16 @@ body {
 }
 
 .card {
-    background-color: #c8c8c4; 
-    border: 1px solid #b4b4b0;
+    background-color: #ffffff; 
+    border: 1px solid #cbd5e1;
     padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.logo-card {
+    background-color: #0d485c;
+    color: #ffffff;
+    border: none;
 }
 
 .logo-card h2 {
@@ -63,13 +75,14 @@ body {
 
 .logo-card p {
     font-size: 11px;
-    color: #444442;
+    color: #e2e8f0;
     line-height: 1.3;
 }
 
 .parameters-card h3 {
     font-size: 13px;
     margin-bottom: 10px;
+    color: #0d485c;
 }
 
 .parameter-list {
@@ -87,12 +100,14 @@ body {
 .tip-card h4 {
     font-size: 13px;
     margin-bottom: 8px;
+    color: #0d485c;
 }
 
 .tip-card p {
     font-size: 12px;
     margin-bottom: 12px;
     line-height: 1.4;
+    color: #475569;
 }
 
 .color-legend {
@@ -125,11 +140,12 @@ body {
 .safety-card h3 {
     font-size: 13px;
     margin-bottom: 10px;
+    color: #0d485c;
 }
 
 .safety-link {
     font-size: 13px;
-    color: #004b6e;
+    color: #0284c7;
     text-decoration: underline;
     font-weight: bold;
 }
@@ -144,17 +160,18 @@ body {
 .map-search-input {
     width: 100%;
     height: 40px;
-    background-color: #c8c8c4;
-    border: 1px solid #b4b4b0;
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
     padding: 0 15px;
     font-size: 14px;
     outline: none;
+    color: #1e293b;
 }
 
 .map-viewport-box {
     flex: 1;
     border: 1px solid #000000;
-    background-color: #b5b5b1;
+    background-color: #f1f5f9;
     position: relative;
 }
 
@@ -163,16 +180,19 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #444442;
+    color: #64748b;
     font-size: 14px;
 }
 
 .side-panel-right {
     width: 280px;
-    background-color: #c8c8c4;
-    border: 1px solid #b4b4b0;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('https://unsplash.com');
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #cbd5e1;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
 }
 
 .info-header-block {
@@ -200,17 +220,18 @@ body {
 .info-status-text {
     font-size: 13px;
     font-weight: bold;
+    color: #0d485c;
 }
 
 .info-subtext {
     font-size: 12px;
-    color: #444442;
+    color: #334155;
     line-height: 1.4;
 }
 
 .separator-line {
     border: none;
-    border-top: 1px solid #b4b4b0;
+    border-top: 1px solid #cbd5e1;
     margin: 5px 0;
 }
 
@@ -219,6 +240,6 @@ body {
     bottom: 20px;
     left: 15px;
     font-size: 12px;
-    color: #555552;
+    color: #64748b;
     font-style: italic;
 }
