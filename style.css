@@ -186,9 +186,15 @@ body {
 
 .side-panel-right {
     width: 280px;
-    background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('https://unsplash.com');
-    background-size: cover;
-    background-position: center;
+    background-color: #ffffff;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.92)),
+        linear-gradient(90deg, transparent 50%, rgba(13, 72, 92, 0.08) 50%, rgba(13, 72, 92, 0.08) 70%, transparent 70%),
+        linear-gradient(90deg, transparent 20%, rgba(13, 72, 92, 0.05) 20%, rgba(13, 72, 92, 0.05) 45%, transparent 45%),
+        linear-gradient(90deg, transparent 65%, rgba(13, 72, 92, 0.06) 65%, rgba(13, 72, 92, 0.06) 90%, transparent 90%);
+    background-size: auto, 80px 120px, 110px 160px, 90px 100px;
+    background-repeat: no-repeat;
+    background-position: bottom left, bottom right, bottom left 40px, bottom right 20px;
     border: 1px solid #cbd5e1;
     display: flex;
     flex-direction: column;
