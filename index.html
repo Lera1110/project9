@@ -8,70 +8,78 @@
 </head>
 <body>
     <div class="app-container">
+        
+        <aside class="left-icon-menu">
+            <button class="menu-btn">📂</button>
+            <button class="menu-btn">🔍</button>
+            <button class="menu-btn">+</button>
+        </aside>
 
         <section class="side-panel-left">
-
-        <div class="card logo-card">
-            <h2>DRONE MAP NSK</h2>
-            <p>Карта зон для полетов по Новосибирску</p>
-        </div>
-
-        <div class="card parameters-card">
-            <h3>Параметры карты</h3>
-            <ul class="parameter-list">
-                <li><span class="dot-red"></span> Запрещенные зоны</li>
-                <li><span class="dot-yellow"></span> Ограничения</li>
-                <li><span class="dot-green"></span> Рекомендованные</li>
-            </ul>
-        </div>
-
-                    <div class="card tip-card">
-                <h4>Идентификация БВС</h4>
-                <p>С 2026 года для полетов тяжелее 250 г обязательна интеграция с АИС «ЭРА-ГЛОНАСС».</p>
+            
+            <div class="card logo-card">
+                <h2>DRONE MAP NSK</h2>
+                <p>Карта зон для полетов по Новосибирску</p>
             </div>
 
-        <div class="card safety-card">
-            <h3>Летайте безопасно</h3>
-            <a href="https://favt.gov.ru" target="_blank" class="safety-link">Узнать о правилах полета</a>
-        </div>
-
-    </section>
-
-    <main class="center-map-area">
-
-        <div class="search-bar-container">
-            <input type="text" placeholder="Поиск по адресу или координатам" class="map-search-input" value="Новосибирск, Красный проспект">
-        </div>
-
-        <div class="map-viewport-box">
-            <div class="map-placeholder-content">
-                <span>Интерактивная карта отключена</span>
+            <div class="card parameters-card">
+                <h3>Параметры карты</h3>
+                <ul class="parameter-list">
+                    <li><span class="dot-red"></span> Запрещенные зоны</li>
+                    <li><span class="dot-yellow"></span> Ограничения</li>
+                    <li><span class="dot-green"></span> Рекомендованные</li>
+                </ul>
             </div>
-        </div>
 
-    </main>
-
-    <aside class="side-panel-right">
-
-        <div class="info-header-block">
-            <h3>Информация о выбранной зоне</h3>
-        </div>
-
-        <div class="info-body-block">
-            <p class="info-status-text">Точка выбрана: Новосибирск</p>
-            <p class="info-subtext">Зона ограничений полётов гражданских БВС (ОрВД).</p>
-
-            <hr class="separator-line">
-
-            <p class="info-status-text">Действующие правила</p>
-            <p class="info-subtext">Требуется предварительное согласование полетного плана через Единую систему ОрВД РФ.</p>
-
-            <div class="reason-hashtag">
-                    ограничения
+            <div class="card tip-card">
+                <h4>Нарушение правил ИВП</h4>
+                <p>Штрафы по ст. 11.4 КоАП РФ за несогласованный полет в черте НСК:</p>
+                <ul>
+                    <li>Физические лица: <strong>от 20 до 50 тыс. ₽</strong></li>
+                    <li>Юридические лица: <strong>от 250 до 500 тыс. ₽</strong></li>
+                </ul>
             </div>
-        </div>
 
-    </aside>
+            <div class="card safety-card">
+                <h3>Летайте безопасно</h3>
+                <a href="https://favt.gov.ru" target="_blank" class="safety-link">Узнать о правилах полета</a>
+            </div>
+
+        </section>
+
+        <main class="center-map-area">
+            
+            <div class="search-bar-container">
+                <input type="text" placeholder="Поиск..." class="map-search-input" value="Новосибирск">
+            </div>
+
+            <div class="map-viewport-box">
+                <iframe src="https://yandex.ru" class="yandex-map-iframe" allowfullscreen="true"></iframe>
+            </div>
+
+        </main>
+
+        <aside class="side-panel-right">
+            
+            <div class="info-header-block">
+                <h3>Информация о зоне</h3>
+            </div>
+
+            <div class="info-body-block">
+                <p class="info-status-text">Точка выбрана: Новосибирск</p>
+                <p class="info-subtext">Зона ограничений полётов гражданских БВС (ОрВД).</p>
+                
+                <hr class="separator-line">
+                
+                <p class="info-status-text">Действующие правила</p>
+                <p class="info-subtext">Требуется предварительное согласование полетного плана через Единую систему ОрВД РФ.</p>
+                
+                <div class="reason-hashtag">
+                    #локальные_ограничения_нск
+                </div>
+            </div>
+
+        </aside>
 
     </div>
 </body>
