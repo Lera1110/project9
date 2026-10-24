@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #eef2f5;
+    background-color: #f0f4f1;
     color: #1e293b;
     height: 100vh;
     overflow: hidden;
@@ -16,25 +16,25 @@ body {
     display: flex;
     width: 100vw;
     height: 100vh;
-    padding: 15px;
-    gap: 15px;
+    padding: 12px;
+    gap: 12px;
 }
 
 .left-icon-menu {
-    width: 50px;
+    width: 45px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 25px;
-    padding-top: 10px;
+    gap: 20px;
+    padding-top: 5px;
 }
 
 .menu-btn {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     background: transparent;
     border: none;
-    font-size: 22px;
+    font-size: 20px;
     cursor: pointer;
     color: #64748b;
     display: flex;
@@ -44,93 +44,90 @@ body {
 }
 
 .menu-btn:hover {
-    color: #0d485c;
+    color: #1e4620;
 }
 
 .side-panel-left {
-    width: 260px;
+    width: 250px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
 }
 
 .card {
     background-color: #ffffff; 
     border: 1px solid #cbd5e1;
-    padding: 15px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
 }
 
 .logo-card {
-    background-color: #0d485c;
+    background-color: #1e4620;
     color: #ffffff;
     border: none;
 }
 
 .logo-card h2 {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
 }
 
 .logo-card p {
     font-size: 11px;
-    color: #e2e8f0;
+    color: #d1eae1;
     line-height: 1.3;
 }
 
 .parameters-card h3 {
-    font-size: 13px;
-    margin-bottom: 10px;
-    color: #0d485c;
+    font-size: 12px;
+    margin-bottom: 8px;
+    color: #1e4620;
 }
 
 .parameter-list {
     list-style: none;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .parameter-list li {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
 }
 
 .tip-card h4 {
-    font-size: 13px;
-    margin-bottom: 8px;
-    color: #0d485c;
+    font-size: 12px;
+    margin-bottom: 6px;
+    color: #1e4620;
 }
 
 .tip-card p {
-    font-size: 12px;
-    margin-bottom: 12px;
-    line-height: 1.4;
+    font-size: 11px;
+    margin-bottom: 8px;
+    line-height: 1.3;
     color: #475569;
 }
 
-.color-legend {
+.tip-card ul {
     list-style: none;
-    font-size: 12px;
-    line-height: 1.6;
+    font-size: 11px;
+    padding-left: 5px;
 }
 
-.color-legend li {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    margin-bottom: 6px;
+.tip-card li {
+    margin-bottom: 4px;
 }
 
 .side-panel-left .dot-red, 
 .side-panel-left .dot-yellow, 
 .side-panel-left .dot-green {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     display: inline-block;
-    margin-top: 3px;
     flex-shrink: 0;
 }
 .dot-red { background-color: #ff3b30; }
@@ -138,14 +135,14 @@ body {
 .dot-green { background-color: #34c759; }
 
 .safety-card h3 {
-    font-size: 13px;
-    margin-bottom: 10px;
-    color: #0d485c;
+    font-size: 12px;
+    margin-bottom: 8px;
+    color: #1e4620;
 }
 
 .safety-link {
-    font-size: 13px;
-    color: #0284c7;
+    font-size: 12px;
+    color: #16a34a;
     text-decoration: underline;
     font-weight: bold;
 }
@@ -154,98 +151,104 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
+    position: relative;
+}
+
+.search-bar-container {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 10;
+    width: 220px;
 }
 
 .map-search-input {
     width: 100%;
-    height: 40px;
+    height: 34px;
     background-color: #ffffff;
     border: 1px solid #cbd5e1;
-    padding: 0 15px;
-    font-size: 14px;
+    border-radius: 6px;
+    padding: 0 12px;
+    font-size: 13px;
     outline: none;
     color: #1e293b;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .map-viewport-box {
     flex: 1;
-    border: 1px solid #000000;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    overflow: hidden;
     background-color: #f1f5f9;
-    position: relative;
 }
 
-.map-placeholder-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #64748b;
-    font-size: 14px;
+.yandex-map-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
 }
 
 .side-panel-right {
-    width: 280px;
+    width: 220px;
     background-color: #ffffff;
-    background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.92)),
-        linear-gradient(90deg, transparent 50%, rgba(13, 72, 92, 0.08) 50%, rgba(13, 72, 92, 0.08) 70%, transparent 70%),
-        linear-gradient(90deg, transparent 20%, rgba(13, 72, 92, 0.05) 20%, rgba(13, 72, 92, 0.05) 45%, transparent 45%),
-        linear-gradient(90deg, transparent 65%, rgba(13, 72, 92, 0.06) 65%, rgba(13, 72, 92, 0.06) 90%, transparent 90%);
-    background-size: auto, 80px 120px, 110px 160px, 90px 100px;
-    background-repeat: no-repeat;
-    background-position: bottom left, bottom right, bottom left 40px, bottom right 20px;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.90)), url('nsk.jpg');
+    background-size: cover;
+    background-position: center;
     border: 1px solid #cbd5e1;
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    overflow: hidden;
 }
 
 .info-header-block {
-    background-color: #0d485c;
-    padding: 15px;
+    background-color: #1e4620;
+    padding: 10px 12px;
     color: #ffffff;
 }
 
 .info-header-block h3 {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: normal;
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
 
 .info-body-block {
-    padding: 20px 15px;
+    padding: 12px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
     height: 100%;
     position: relative;
 }
 
 .info-status-text {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: bold;
-    color: #0d485c;
+    color: #1e4620;
 }
 
 .info-subtext {
-    font-size: 12px;
+    font-size: 11px;
     color: #334155;
-    line-height: 1.4;
+    line-height: 1.3;
 }
 
 .separator-line {
     border: none;
     border-top: 1px solid #cbd5e1;
-    margin: 5px 0;
+    margin: 4px 0;
 }
 
 .reason-hashtag {
     position: absolute;
-    bottom: 20px;
-    left: 15px;
-    font-size: 12px;
+    bottom: 12px;
+    left: 12px;
+    font-size: 11px;
     color: #64748b;
     font-style: italic;
 }
