@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 body {
@@ -47,7 +47,7 @@ body {
 
 .search-bar-container {
     position: absolute;
-    top: 20px;
+    top: 15px;
     left: 20px;
     z-index: 10;
     width: 320px;
@@ -74,17 +74,18 @@ body {
     font-size: 13px;
     outline: none;
     color: #1f293b;
+    font-weight: bold;
 }
 
 .side-panel-left {
     position: absolute;
-    top: 75px;
+    top: 70px;
     left: 20px;
     z-index: 10;
     width: 250px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
 }
 
 .card {
@@ -160,8 +161,8 @@ body {
 
 .side-panel-right {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 15px;
+    right: 15px;
     z-index: 10;
     width: 240px;
     background-color: #ffffff;
@@ -221,5 +222,3 @@ body {
     font-size: 11px;
     color: #6b7280;
 }
-
-
