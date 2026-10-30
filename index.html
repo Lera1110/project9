@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Карта зон для полетов по Новосибирску</title>
+    <title>DRONE MAP NSK</title>
+    <link href="https://unpkg.com" rel="stylesheet" />
+    <script src="https://unpkg.com"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,14 +18,10 @@
 
         <section class="side-panel-left">
             
-            <div class="card logo-card">
-                <p>Карта зон для полетов по Новосибирску</p>
-            </div>
-
             <div class="card parameters-card">
                 <h3>Параметры карты</h3>
                 <ul class="parameter-list">
-                    <li><span class="dot-red"></span> Запрещенные зоны</li>
+                    <li><span class="dot-red"></span> Запрещенные zones</li>
                     <li><span class="dot-yellow"></span> Ограничения</li>
                     <li><span class="dot-green"></span> Рекомендованные</li>
                 </ul>
@@ -38,9 +36,8 @@
 
         <main class="center-map-area">
             <div class="map-viewport-box">
-                <div class="map-placeholder-content">
-                    <span>Место для интерактивной карты</span>
-                </div>
+                <!-- Карта теперь встраивается сюда -->
+                <div id="map"></div>
             </div>
         </main>
 
@@ -51,21 +48,112 @@
             </div>
 
             <div class="info-body-block">
-                <p class="info-status-text">Точка выбрана: Новосибирск</p>
-                <p class="info-subtext">Зона ограничений полётов гражданских БВС (ОрВД).</p>
+                <p class="info-status-text">Точка выбранна/нет</p>
+                <p class="info-subtext">Нажмите на карту или найдите адрес (если нет)</p>
                 
                 <hr class="separator-line">
                 
-                <p class="info-status-text">Действующие правила</p>
-                <p class="info-subtext">Требуется предварительное согласование полетного плана через Единую систему ОрВД РФ.</p>
+                <p class="info-status-text">Информация о выбранной зоне</p>
+                <p class="info-subtext">Выберите зону, чтобы узнать подробнее</p>
                 
                 <div class="reason-hashtag">
-                   ограничения
+                    #можно ли летать, если нет, то причина
                 </div>
             </div>
 
         </aside>
 
     </div>
+
+    <script>
+        const map = new maplibregl.Map({
+            container: 'map',
+            style: 'https://maplibre.org', 
+            center: [82.9346, 55.0084], 
+            zoom: 10
+        });
+
+        map.addControl(new maplibregl.NavigationControl(), 'bottom-right');
+
+        map.on('load', () => {
+            map.addSource('red-zone', {
+                'type': 'geojson',
+                'data': {
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'Polygon',
+                        'coordinates': [[
+                            [82.880, 55.050], [82.980, 55.050],
+                            [82.980, 54.980], [82.880, 54.980],
+                            [82.880, 55.050]
+                        ]]
+                    }
+                }
+            });
+
+            map.addLayer({
+                'id': 'red-layer',
+                'type': 'fill',
+                'source': 'red-zone',
+                'paint': {
+                    'fill-color': '#ef4444',
+                    'fill-opacity': 0.4,
+                    'fill-outline-color': '#ef4444'
+                }
+            });
+
+            map.addSource('yellow-zone', {
+                'type': 'geojson',
+                'data': {
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'Polygon',
+                        'coordinates': [[
+                            [82.550, 55.120], [82.750, 55.120],
+                            [82.750, 54.920], [82.550, 54.920],
+                            [82.550, 55.120]
+                        ]]
+                    }
+                }
+            });
+
+            map.addLayer({
+                'id': 'yellow-layer',
+                'type': 'fill',
+                'source': 'yellow-zone',
+                'paint': {
+                    'fill-color': '#f59e0b',
+                    'fill-opacity': 0.35,
+                    'fill-outline-color': '#f59e0b'
+                }
+            });
+
+            map.addSource('green-zone', {
+                'type': 'geojson',
+                'data': {
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'Polygon',
+                        'coordinates': [[
+                            [82.800, 55.150], [82.920, 55.150],
+                            [82.920, 55.080], [82.800, 55.080],
+                            [82.800, 55.150]
+                        ]]
+                    }
+                }
+            });
+
+            map.addLayer({
+                'id': 'green-layer',
+                'type': 'fill',
+                'source': 'green-zone',
+                'paint': {
+                    'fill-color': '#10b981',
+                    'fill-opacity': 0.35,
+                    'fill-outline-color': '#10b981'
+                }
+            });
+        });
+    </script>
 </body>
 </html>
