@@ -33,9 +33,66 @@ body {
     position: relative;
 }
 
-#map {
+.vector-map-bg {
     width: 100%;
     height: 100%;
+    background-color: #cad7dc;
+    background-image: 
+        linear-gradient(to right, rgba(255,255,255,0.3) 2px, transparent 2px),
+        linear-gradient(to bottom, rgba(255,255,255,0.3) 2px, transparent 2px);
+    background-size: 50px 50px;
+    position: relative;
+}
+
+.map-label {
+    position: absolute;
+    top: 48%;
+    left: 48%;
+    font-size: 16px;
+    font-weight: bold;
+    color: #556677;
+    opacity: 0.5;
+}
+
+.interactive-zone {
+    position: absolute;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.interactive-zone:hover {
+    transform: scale(1.02);
+}
+
+.zone-red {
+    top: 35%;
+    left: 42%;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background-color: rgba(239, 68, 68, 0.45);
+    border: 2px solid #ef4444;
+}
+
+.zone-yellow {
+    top: 20%;
+    left: 22%;
+    width: 200px;
+    height: 140px;
+    border-radius: 8px;
+    background-color: rgba(245, 158, 11, 0.4);
+    border: 2px dashed #f59e0b;
+}
+
+.zone-green {
+    bottom: 20%;
+    left: 45%;
+    width: 180px;
+    height: 110px;
+    border-radius: 8px;
+    background-color: rgba(16, 185, 129, 0.4);
+    border: 2px solid #10b981;
 }
 
 .search-bar-container {
