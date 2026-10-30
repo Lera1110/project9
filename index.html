@@ -39,8 +39,8 @@
 
         <main class="center-map-area">
             <div class="map-viewport-box">
-                <!-- Полностью рабочая и безопасная живая Яндекс.Карта Новосибирска -->
-                <iframe src="https://yandex.ru" class="yandex-map-frame" frameborder="0"></iframe>
+                <!-- Реальная, работающая живая карта Новосибирска -->
+                <iframe src="https://yandex.ru" class="yandex-map-frame" frameborder="0" allowfullscreen="true"></iframe>
                 
                 <!-- Интерактивные кликабельные слои для вывода информации в правую панель -->
                 <div class="map-overlay-zone zone-center-click" onclick="updateInfo('Точка выбрана: Центр города', 'Полеты полностью ЗАПРЕЩЕНЫ. Высокая концентрация административных зданий и мест скопления людей.', 'Для полетов в этой зоне требуется специальное разрешение от Администрации города и ФСО.', '#Нельзя_летать_центр_запрещен')" title="Центр города"></div>
@@ -85,10 +85,11 @@
             if (e.key === 'Enter') {
                 const query = encodeURIComponent(this.value);
                 const iframe = document.querySelector('.yandex-map-frame');
-                iframe.src = `https://yandex.ru{query}&amp;source=constructor`;
+                iframe.src = `https://yandex.ru{query}&z=12&l=map`;
             }
         });
     </script>
 </body>
 </html>
+
 
