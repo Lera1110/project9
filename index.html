@@ -72,30 +72,7 @@
     <script>
         const map = new maplibregl.Map({
             container: 'map',
-            style: {
-                'version': 8,
-                'sources': {
-                    'raster-tiles': {
-                        'type': 'raster',
-                        'tiles': [
-                            'https://openstreetmap.org{z}/{x}/{y}.png',
-                            'https://openstreetmap.org{z}/{x}/{y}.png',
-                            'https://openstreetmap.org{z}/{x}/{y}.png'
-                        ],
-                        'tileSize': 256,
-                        'attribution': '© OpenStreetMap contributors'
-                    }
-                },
-                'layers': [
-                    {
-                        'id': 'simple-tiles',
-                        'type': 'raster',
-                        'source': 'raster-tiles',
-                        'minzoom': 0,
-                        'maxzoom': 19
-                    }
-                ]
-            },
+            style: 'https://cartocdn.com',
             center: [82.9346, 55.0084], 
             zoom: 11
         });
@@ -202,7 +179,7 @@
             const layers = ['red-layer', 'yellow-layer', 'green-layer'];
             layers.forEach(layer => {
                 map.on('click', layer, (e) => {
-                    const props = e.features[0].properties;
+                    const props = e.features.properties;
                     document.getElementById('zone-title').innerText = props.title;
                     document.getElementById('zone-desc').innerText = props.desc;
                     document.getElementById('zone-subdesc').innerText = props.subdesc;
