@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DRONE MAP NSK</title>
+    <link href="https://unpkg.com" rel="stylesheet" />
+    <script src="https://unpkg.com"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,10 +18,15 @@
 
         <section class="side-panel-left">
             
+            <div class="card logo-card">
+                <h2>DRONE MAP NSK</h2>
+                <p>Карта зон для полетов по Новосибирску</p>
+            </div>
+
             <div class="card parameters-card">
                 <h3>Параметры карты</h3>
                 <ul class="parameter-list">
-                    <li><span class="dot-red"></span> Запрещенные zones</li>
+                    <li><span class="dot-red"></span> Запрещенные зоны</li>
                     <li><span class="dot-yellow"></span> Ограничения</li>
                     <li><span class="dot-green"></span> Рекомендованные</li>
                 </ul>
@@ -34,12 +41,7 @@
 
         <main class="center-map-area">
             <div class="map-viewport-box">
-                <div class="vector-map-bg">
-                    <div class="interactive-zone zone-red" onclick="selectZone('Зона: Центр Новосибирска', 'Полеты гражданских БВС полностью запрещены властями города.', '#Нельзя_летать_запретная_зона')"></div>
-                    <div class="interactive-zone zone-yellow" onclick="selectZone('Зона: Аэропорт Толмачево', 'Действует приаэродромная зона контроля. Требуется согласование.', '#Ограничения_нужно_разрешение_ОрВД')"></div>
-                    <div class="interactive-zone zone-green" onclick="selectZone('Зона: Заельцовский парк', 'Разрешенная визуальная зона для свободного пилотирования легких БВС.', '#Можно_летать_до_150_метров')"></div>
-                    <div class="map-label">Новосибирск</div>
-                </div>
+                <div id="map"></div>
             </div>
         </main>
 
@@ -56,7 +58,7 @@
                 <hr class="separator-line">
                 
                 <p class="info-status-text">Информация о выбранной зоне</p>
-                <p class="info-subtext">Выберите зону, чтобы узнать подробнее</p>
+                <p class="info-subtext" id="zone-subdesc">Выберите зону, чтобы узнать подробнее</p>
                 
                 <div class="reason-hashtag" id="zone-tag">
                     #можно ли летать, если нет, то причина
@@ -68,11 +70,148 @@
     </div>
 
     <script>
-        function selectZone(title, desc, tag) {
-            document.getElementById('zone-title').innerText = title;
-            document.getElementById('zone-desc').innerText = desc;
-            document.getElementById('zone-tag').innerText = tag;
-        }
+        const map = new maplibregl.Map({
+            container: 'map',
+            style: {
+                'version': 8,
+                'sources': {
+                    'raster-tiles': {
+                        'type': 'raster',
+                        'tiles': [
+                            'https://openstreetmap.org{z}/{x}/{y}.png',
+                            'https://openstreetmap.org{z}/{x}/{y}.png',
+                            'https://openstreetmap.org{z}/{x}/{y}.png'
+                        ],
+                        'tileSize': 256,
+                        'attribution': '© OpenStreetMap contributors'
+                    }
+                },
+                'layers': [
+                    {
+                        'id': 'simple-tiles',
+                        'type': 'raster',
+                        'source': 'raster-tiles',
+                        'minzoom': 0,
+                        'maxzoom': 19
+                    }
+                ]
+            },
+            center: [82.9346, 55.0084], 
+            zoom: 11
+        });
+
+        map.addControl(new maplibregl.NavigationControl(), 'bottom-right');
+
+        map.on('load', () => {
+            map.addSource('red-zone', {
+                'type': 'geojson',
+                'data': {
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'Polygon',
+                        'coordinates': [[
+                            [82.880, 55.055], [82.990, 55.055],
+                            [82.990, 54.985], [82.880, 54.985],
+                            [82.880, 55.055]
+                        ]]
+                    },
+                    'properties': {
+                        'title': 'Точка выбрана: Центр города',
+                        'desc': 'Полеты полностью ЗАПРЕЩЕНЫ. Высокая концентрация административных зданий и мест скопления людей.',
+                        'subdesc': 'Для полетов в этой зоне требуется специальное разрешение от Администрации города и ФСО.',
+                        'tag': '#Нельзя_летать_центр_запрещен'
+                    }
+                }
+            });
+
+            map.addLayer({
+                'id': 'red-layer',
+                'type': 'fill',
+                'source': 'red-zone',
+                'paint': {
+                    'fill-color': '#ff0000',
+                    'fill-opacity': 0.45,
+                    'fill-outline-color': '#ff0000'
+                }
+            });
+
+            map.addSource('yellow-zone', {
+                'type': 'geojson',
+                'data': {
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'Polygon',
+                        'coordinates': [[
+                            [82.600, 55.050], [82.780, 55.050],
+                            [82.780, 54.950], [82.600, 54.950],
+                            [82.600, 55.050]
+                        ]]
+                    },
+                    'properties': {
+                        'title': 'Точка выбрана: Толмачево',
+                        'desc': 'Действует режим ОГРАНИЧЕНИЙ. Приаэродромная территория гражданской авиации.',
+                        'subdesc': 'Полеты возможны только при подаче официального полетного плана в Единую систему ОрВД РФ за 5 дней.',
+                        'tag': '#Ограничения_аэропорт_согласование'
+                    }
+                }
+            });
+
+            map.addLayer({
+                'id': 'yellow-layer',
+                'type': 'fill',
+                'source': 'yellow-zone',
+                'paint': {
+                    'fill-color': '#ffcc00',
+                    'fill-opacity': 0.4,
+                    'fill-outline-color': '#ffcc00'
+                }
+            });
+
+            map.addSource('green-zone', {
+                'type': 'geojson',
+                'data': {
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'Polygon',
+                        'coordinates': [[
+                            [82.850, 55.140], [82.960, 55.140],
+                            [82.960, 55.075], [82.850, 55.075],
+                            [82.850, 55.140]
+                        ]]
+                    },
+                    'properties': {
+                        'title': 'Точка выбрана: Заельцовский',
+                        'desc': 'Рекомендованная ЗОНА ОТКРЫТОГО НЕБА для хобби и тренировок.',
+                        'subdesc': 'Разрешены свободные визуальные полеты БВС массой до 150 грамм на высоте до 150 метров от земли.',
+                        'tag': '#Можно_летать_без_согласования'
+                    }
+                }
+            });
+
+            map.addLayer({
+                'id': 'green-layer',
+                'type': 'fill',
+                'source': 'green-zone',
+                'paint': {
+                    'fill-color': '#00cc44',
+                    'fill-opacity': 0.4,
+                    'fill-outline-color': '#00cc44'
+                }
+            });
+
+            const layers = ['red-layer', 'yellow-layer', 'green-layer'];
+            layers.forEach(layer => {
+                map.on('click', layer, (e) => {
+                    const props = e.features[0].properties;
+                    document.getElementById('zone-title').innerText = props.title;
+                    document.getElementById('zone-desc').innerText = props.desc;
+                    document.getElementById('zone-subdesc').innerText = props.subdesc;
+                    document.getElementById('zone-tag').innerText = props.tag;
+                });
+                map.on('mouseenter', layer, () => { map.getCanvas().style.cursor = 'pointer'; });
+                map.on('mouseleave', layer, () => { map.getCanvas().style.cursor = ''; });
+            });
+        });
     </script>
 </body>
 </html>
