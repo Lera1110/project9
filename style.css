@@ -40,7 +40,6 @@ body {
     border: none;
 }
 
-/* Стилизация невидимых кликабельных интерактивных слоев поверх карты */
 .map-overlay-zone {
     position: absolute;
     cursor: pointer;

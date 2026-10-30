@@ -39,13 +39,13 @@
 
         <main class="center-map-area">
             <div class="map-viewport-box">
-                <!-- Живая официальная карта Новосибирска со всеми улицами, домами и рекой -->
-                <iframe src="https://yandex.ru" class="yandex-map-frame" allowfullscreen="true"></iframe>
+                <!-- Стабильная карта Новосибирска со всеми улицами, домами и дорогами -->
+                <iframe src="https://yandex.ru:/services/constructor/1.0/iframe/?um=constructor%3A374c43ba450f3b4ba91d2937bebfba22cf5501869e80209f98ca7ec0f3a6977e&amp;source=constructor" class="yandex-map-frame" frameborder="0"></iframe>
                 
-                <!-- Прозрачные интерактивные зоны поверх карты, которые можно кликать -->
-                <div class="map-overlay-zone zone-center-click" onclick="updateInfo('Точка выбрана: Центр города', 'Полеты полностью ЗАПРЕЩЕНЫ. Высокая концентрация административных зданий и мест скопления людей.', 'Для полетов в этой зоне требуется специальное разрешение от Администрации города и ФСО.', '#Нельзя_летать_центр_запрещен')" title="Нажмите для информации"></div>
-                <div class="map-overlay-zone zone-tolmachevo-click" onclick="updateInfo('Точка выбрана: Толмачево', 'Действует режим ОГРАНИЧЕНИЙ. Приаэродромная территория гражданской авиации.', 'Полеты возможны только при подаче официального полетного плана в Единую систему ОрВД РФ за 5 дней.', '#Ограничения_аэропорт_согласование')" title="Нажмите для информации"></div>
-                <div class="map-overlay-zone zone-zaelcovsky-click" onclick="updateInfo('Точка выбрана: Заельцовский', 'Рекомендованная ЗОНА ОТКРЫТОГО НЕБА для хобби и тренировок.', 'Разрешены свободные визуальные полеты БВС массой до 150 грамм на высоте до 150 метров от земли.', '#Можно_летать_без_согласования')" title="Нажмите для информации"></div>
+                <!-- Интерактивные кликабельные слои для вывода информации в правую панель -->
+                <div class="map-overlay-zone zone-center-click" onclick="updateInfo('Точка выбрана: Центр города', 'Полеты полностью ЗАПРЕЩЕНЫ. Высокая концентрация административных зданий и мест скопления людей.', 'Для полетов в этой зоне требуется специальное разрешение от Администрации города и ФСО.', '#Нельзя_летать_центр_запрещен')" title="Центр города"></div>
+                <div class="map-overlay-zone zone-tolmachevo-click" onclick="updateInfo('Точка выбрана: Толмачево', 'Действует режим ОГРАНИЧЕНИЙ. Приаэродромная территория гражданской авиации.', 'Полеты возможны только при подаче официального полетного плана в Единую систему ОрВД РФ за 5 дней.', '#Ограничения_аэропорт_согласование')" title="Толмачево"></div>
+                <div class="map-overlay-zone zone-zaelcovsky-click" onclick="updateInfo('Точка выбрана: Заельцовский', 'Рекомендованная ЗОНА ОТКРЫТОГО НЕБА для хобби и тренировок.', 'Разрешены свободные визуальные полеты БВС массой до 150 грамм на высоте до 150 метров от земли.', '#Можно_летать_без_согласования')" title="Заельцовский бор"></div>
             </div>
         </main>
 
@@ -81,12 +81,11 @@
             document.getElementById('zone-tag').innerText = tag;
         }
 
-        // Рабочий скрипт поиска по адресу внутри встроенной карты
         document.getElementById('search-input').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 const query = encodeURIComponent(this.value);
                 const iframe = document.querySelector('.yandex-map-frame');
-                iframe.src = `https://yandex.ru{query}&z=13&l=map`;
+                iframe.src = `https://yandex.ru:/services/constructor/1.0/iframe/?text=${query}&amp;source=constructor`;
             }
         });
     </script>
