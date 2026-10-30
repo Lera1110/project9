@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DRONE MAP NSK</title>
-    <link href="https://unpkg.com" rel="stylesheet" />
-    <script src="https://unpkg.com"></script>
+    <!-- Подключаем официальный скрипт Яндекс.Карт -->
+    <script src="https://yandex.ru" type="text/javascript"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -41,7 +41,8 @@
 
         <main class="center-map-area">
             <div class="map-viewport-box">
-                <div id="map"></div>
+                <!-- Сюда встроится карта Яндекса -->
+                <div id="map" style="width: 100%; height: 100%;"></div>
             </div>
         </main>
 
@@ -69,126 +70,93 @@
 
     </div>
 
-    <script>
-        const map = new maplibregl.Map({
-            container: 'map',
-            style: 'https://cartocdn.com',
-            center: [82.9346, 55.0084], 
-            zoom: 11
-        });
-
-        map.addControl(new maplibregl.NavigationControl(), 'bottom-right');
-
-        map.on('load', () => {
-            map.addSource('red-zone', {
-                'type': 'geojson',
-                'data': {
-                    'type': 'Feature',
-                    'geometry': {
-                        'type': 'Polygon',
-                        'coordinates': [[
-                            [82.880, 55.055], [82.990, 55.055],
-                            [82.990, 54.985], [82.880, 54.985],
-                            [82.880, 55.055]
-                        ]]
-                    },
-                    'properties': {
-                        'title': 'Точка выбрана: Центр города',
-                        'desc': 'Полеты полностью ЗАПРЕЩЕНЫ. Высокая концентрация административных зданий и мест скопления людей.',
-                        'subdesc': 'Для полетов в этой зоне требуется специальное разрешение от Администрации города и ФСО.',
-                        'tag': '#Нельзя_летать_центр_запрещен'
-                    }
-                }
+    <script type="text/javascript">
+        // Инициализация карты Яндекса
+        ymaps.ready(init);
+        function init(){
+            const myMap = new ymaps.Map("map", {
+                center: [55.0084, 82.9346], // Новосибирск
+                zoom: 10,
+                controls: ['zoomControl']
             });
 
-            map.addLayer({
-                'id': 'red-layer',
-                'type': 'fill',
-                'source': 'red-zone',
-                'paint': {
-                    'fill-color': '#ff0000',
-                    'fill-opacity': 0.45,
-                    'fill-outline-color': '#ff0000'
-                }
+            // 1. КРАСНАЯ ЗОНА (ЦЕНТР)
+            const redZone = new ymaps.Polygon([
+                [
+                    [55.055, 82.880],
+                    [55.055, 82.990],
+                    [54.985, 82.990],
+                    [54.985, 82.880],
+                    [55.055, 82.880]
+                ]
+            ], {}, {
+                fillColor: '#ff0000',
+                fillOpacity: 0.45,
+                strokeColor: '#ff0000',
+                strokeWidth: 2
             });
 
-            map.addSource('yellow-zone', {
-                'type': 'geojson',
-                'data': {
-                    'type': 'Feature',
-                    'geometry': {
-                        'type': 'Polygon',
-                        'coordinates': [[
-                            [82.600, 55.050], [82.780, 55.050],
-                            [82.780, 54.950], [82.600, 54.950],
-                            [82.600, 55.050]
-                        ]]
-                    },
-                    'properties': {
-                        'title': 'Точка выбрана: Толмачево',
-                        'desc': 'Действует режим ОГРАНИЧЕНИЙ. Приаэродромная территория гражданской авиации.',
-                        'subdesc': 'Полеты возможны только при подаче официального полетного плана в Единую систему ОрВД РФ за 5 дней.',
-                        'tag': '#Ограничения_аэропорт_согласование'
-                    }
-                }
+            // 2. ЖЕЛТАЯ ЗОНА (ТОЛМАЧЕВО)
+            const yellowZone = new ymaps.Polygon([
+                [
+                    [55.120, 82.550],
+                    [55.120, 82.780],
+                    [54.920, 82.780],
+                    [54.920, 82.550],
+                    [55.120, 82.550]
+                ]
+            ], {}, {
+                fillColor: '#ffcc00',
+                fillOpacity: 0.4,
+                strokeColor: '#ffcc00',
+                strokeWidth: 2,
+                strokeStyle: 'dash'
             });
 
-            map.addLayer({
-                'id': 'yellow-layer',
-                'type': 'fill',
-                'source': 'yellow-zone',
-                'paint': {
-                    'fill-color': '#ffcc00',
-                    'fill-opacity': 0.4,
-                    'fill-outline-color': '#ffcc00'
-                }
+            // 3. ЗЕЛЕНАЯ ЗОНА (ЗАЕЛЬЦОВСКИЙ)
+            const greenZone = new ymaps.Polygon([
+                [
+                    [55.140, 82.850],
+                    [55.140, 82.960],
+                    [55.075, 82.960],
+                    [55.075, 82.850],
+                    [55.140, 82.850]
+                ]
+            ], {}, {
+                fillColor: '#00cc44',
+                fillOpacity: 0.4,
+                strokeColor: '#00cc44',
+                strokeWidth: 2
             });
 
-            map.addSource('green-zone', {
-                'type': 'geojson',
-                'data': {
-                    'type': 'Feature',
-                    'geometry': {
-                        'type': 'Polygon',
-                        'coordinates': [[
-                            [82.850, 55.140], [82.960, 55.140],
-                            [82.960, 55.075], [82.850, 55.075],
-                            [82.850, 55.140]
-                        ]]
-                    },
-                    'properties': {
-                        'title': 'Точка выбрана: Заельцовский',
-                        'desc': 'Рекомендованная ЗОНА ОТКРЫТОГО НЕБА для хобби и тренировок.',
-                        'subdesc': 'Разрешены свободные визуальные полеты БВС массой до 150 грамм на высоте до 150 метров от земли.',
-                        'tag': '#Можно_летать_без_согласования'
-                    }
-                }
+            // Интерактивность при клике на зоны
+            redZone.events.add('click', function () {
+                document.getElementById('zone-title').innerText = 'Точка выбрана: Центр города';
+                document.getElementById('zone-desc').innerText = 'Полеты полностью ЗАПРЕЩЕНЫ. Высокая концентрация административных зданий и мест скопления людей.';
+                document.getElementById('zone-subdesc').innerText = 'Для полетов в этой зоне требуется специальное разрешение от Администрации города и ФСО.';
+                document.getElementById('zone-tag').innerText = '#Нельзя_летать_центр_запрещен';
             });
 
-            map.addLayer({
-                'id': 'green-layer',
-                'type': 'fill',
-                'source': 'green-zone',
-                'paint': {
-                    'fill-color': '#00cc44',
-                    'fill-opacity': 0.4,
-                    'fill-outline-color': '#00cc44'
-                }
+            yellowZone.events.add('click', function () {
+                document.getElementById('zone-title').innerText = 'Точка выбрана: Толмачево';
+                document.getElementById('zone-desc').innerText = 'Действует режим ОГРАНИЧЕНИЙ. Приаэродромная территория гражданской авиации.';
+                document.getElementById('zone-subdesc').innerText = 'Полеты возможны только при подаче официального полетного плана в Единую систему ОрВД РФ за 5 дней.';
+                document.getElementById('zone-tag').innerText = '#Ограничения_аэропорт_согласование';
             });
 
-            const layers = ['red-layer', 'yellow-layer', 'green-layer'];
-            layers.forEach(layer => {
-                map.on('click', layer, (e) => {
-                    const props = e.features.properties;
-                    document.getElementById('zone-title').innerText = props.title;
-                    document.getElementById('zone-desc').innerText = props.desc;
-                    document.getElementById('zone-subdesc').innerText = props.subdesc;
-                    document.getElementById('zone-tag').innerText = props.tag;
-                });
-                map.on('mouseenter', layer, () => { map.getCanvas().style.cursor = 'pointer'; });
-                map.on('mouseleave', layer, () => { map.getCanvas().style.cursor = ''; });
+            greenZone.events.add('click', function () {
+                document.getElementById('zone-title').innerText = 'Точка выбрана: Заельцовский';
+                document.getElementById('zone-desc').innerText = 'Рекомендованная ЗОНА ОТКРЫТОГО НЕБА для хобби и тренировок.';
+                document.getElementById('zone-subdesc').innerText = 'Разрешены свободные визуальные полеты БВС массой до 150 грамм на высоте до 150 метров от земли.';
+                document.getElementById('zone-tag').innerText = '#Можно_летать_без_согласования';
             });
-        });
+
+            // Добавляем зоны на карту
+            myMap.geoObjects.add(redZone);
+            myMap.geoObjects.add(yellowZone);
+            myMap.geoObjects.add(greenZone);
+        }
     </script>
 </body>
 </html>
+
