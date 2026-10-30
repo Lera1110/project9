@@ -18,10 +18,15 @@
 
         <section class="side-panel-left">
             
+            <div class="card logo-card">
+                <h2>DRONE MAP NSK</h2>
+                <p>Карта зон для полетов по Новосибирску</p>
+            </div>
+
             <div class="card parameters-card">
                 <h3>Параметры карты</h3>
                 <ul class="parameter-list">
-                    <li><span class="dot-red"></span> Запрещенные zones</li>
+                    <li><span class="dot-red"></span> Запрещенные зоны</li>
                     <li><span class="dot-yellow"></span> Ограничения</li>
                     <li><span class="dot-green"></span> Рекомендованные</li>
                 </ul>
@@ -36,7 +41,6 @@
 
         <main class="center-map-area">
             <div class="map-viewport-box">
-                <!-- Карта теперь встраивается сюда -->
                 <div id="map"></div>
             </div>
         </main>
@@ -48,15 +52,15 @@
             </div>
 
             <div class="info-body-block">
-                <p class="info-status-text">Точка выбранна/нет</p>
-                <p class="info-subtext">Нажмите на карту или найдите адрес (если нет)</p>
+                <p class="info-status-text" id="zone-title">Точка выбранна/нет</p>
+                <p class="info-subtext" id="zone-desc">Нажмите на карту или найдите адрес (если нет)</p>
                 
                 <hr class="separator-line">
                 
                 <p class="info-status-text">Информация о выбранной зоне</p>
                 <p class="info-subtext">Выберите зону, чтобы узнать подробнее</p>
                 
-                <div class="reason-hashtag">
+                <div class="reason-hashtag" id="zone-tag">
                     #можно ли летать, если нет, то причина
                 </div>
             </div>
@@ -83,10 +87,15 @@
                     'geometry': {
                         'type': 'Polygon',
                         'coordinates': [[
-                            [82.880, 55.050], [82.980, 55.050],
-                            [82.980, 54.980], [82.880, 54.980],
-                            [82.880, 55.050]
+                            [82.850, 55.060], [83.020, 55.060],
+                            [83.020, 54.960], [82.850, 54.960],
+                            [82.850, 55.060]
                         ]]
+                    },
+                    'properties': {
+                        'title': 'Зона: Центр Новосибирска',
+                        'desc': 'Полеты гражданских квадрокоптеров полностью запрещены властями города.',
+                        'tag': '#Нельзя_летать_запретная_зона'
                     }
                 }
             });
@@ -96,9 +105,9 @@
                 'type': 'fill',
                 'source': 'red-zone',
                 'paint': {
-                    'fill-color': '#ef4444',
+                    'fill-color': '#ff0000',
                     'fill-opacity': 0.4,
-                    'fill-outline-color': '#ef4444'
+                    'fill-outline-color': '#ff0000'
                 }
             });
 
@@ -109,10 +118,15 @@
                     'geometry': {
                         'type': 'Polygon',
                         'coordinates': [[
-                            [82.550, 55.120], [82.750, 55.120],
-                            [82.750, 54.920], [82.550, 54.920],
+                            [82.550, 55.120], [82.800, 55.120],
+                            [82.800, 54.920], [82.550, 54.920],
                             [82.550, 55.120]
                         ]]
+                    },
+                    'properties': {
+                        'title': 'Зона: Аэропорт Толмачево',
+                        'desc': 'Действует приаэродромная зона контроля воздушного движения. Требуется согласование.',
+                        'tag': '#Ограничения_нужно_разрешение_ОрВД'
                     }
                 }
             });
@@ -122,9 +136,9 @@
                 'type': 'fill',
                 'source': 'yellow-zone',
                 'paint': {
-                    'fill-color': '#f59e0b',
+                    'fill-color': '#ffcc00',
                     'fill-opacity': 0.35,
-                    'fill-outline-color': '#f59e0b'
+                    'fill-outline-color': '#ffcc00'
                 }
             });
 
@@ -135,10 +149,15 @@
                     'geometry': {
                         'type': 'Polygon',
                         'coordinates': [[
-                            [82.800, 55.150], [82.920, 55.150],
-                            [82.920, 55.080], [82.800, 55.080],
-                            [82.800, 55.150]
+                            [82.820, 55.160], [82.950, 55.160],
+                            [82.950, 55.090], [82.820, 55.090],
+                            [82.820, 55.160]
                         ]]
+                    },
+                    'properties': {
+                        'title': 'Зона: Заельцовский парк',
+                        'desc': 'Разрешенная визуальная зона для свободного пилотирования легких БВС.',
+                        'tag': '#Можно_летать_до_150_метров'
                     }
                 }
             });
@@ -148,10 +167,22 @@
                 'type': 'fill',
                 'source': 'green-zone',
                 'paint': {
-                    'fill-color': '#10b981',
+                    'fill-color': '#00cc44',
                     'fill-opacity': 0.35,
-                    'fill-outline-color': '#10b981'
+                    'fill-outline-color': '#00cc44'
                 }
+            });
+
+            const layers = ['red-layer', 'yellow-layer', 'green-layer'];
+            layers.forEach(layer => {
+                map.on('click', layer, (e) => {
+                    const props = e.features.properties;
+                    document.getElementById('zone-title').innerText = props.title;
+                    document.getElementById('zone-desc').innerText = props.desc;
+                    document.getElementById('zone-tag').innerText = props.tag;
+                });
+                map.on('mouseenter', layer, () => { map.getCanvas().style.cursor = 'pointer'; });
+                map.on('mouseleave', layer, () => { map.getCanvas().style.cursor = ''; });
             });
         });
     </script>
