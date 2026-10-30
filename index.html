@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DRONE MAP NSK</title>
-    <!-- Подключаем официальный скрипт Яндекс.Карт -->
-    <script src="https://yandex.ru" type="text/javascript"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -41,8 +39,23 @@
 
         <main class="center-map-area">
             <div class="map-viewport-box">
-                <!-- Сюда встроится карта Яндекса -->
-                <div id="map" style="width: 100%; height: 100%;"></div>
+                <div class="map-canvas-vector">
+                    
+                    <!-- Интерактивные зоны полетов -->
+                    <div class="map-clickable-zone zone-tolmachevo" onclick="selectZone('Толкачево', 'Действует режим ОГРАНИЧЕНИЙ. Приаэродромная территория гражданской авиации.', 'Полеты возможны только при подаче официального полетного плана в Единую систему ОрВД РФ за 5 дней.', '#Ограничения_аэропорт_согласование')">
+                        <span>⚠️ Толмачево</span>
+                    </div>
+                    
+                    <div class="map-clickable-zone zone-center" onclick="selectZone('Центр города', 'Полеты полностью ЗАПРЕЩЕНЫ. Высокая концентрация административных зданий и мест скопления людей.', 'Для полетов в этой зоне требуется специальное разрешение от Администрации города и ФСО.', '#Нельзя_летать_центр_запрещен')">
+                        <span>❌ Центр</span>
+                    </div>
+                    
+                    <div class="map-clickable-zone zone-zaelcovsky" onclick="selectZone('Заельцовский', 'Рекомендованная ЗОНА ОТКРЫТОГО НЕБА для хобби и тренировок.', 'Разрешены свободные визуальные полеты БВС массой до 150 грамм на высоте до 150 метров от земли.', '#Можно_летать_без_согласования')">
+                        <span>✔️ Заельцовский бор</span>
+                    </div>
+
+                    <div class="city-river-label">река ОБЬ</div>
+                </div>
             </div>
         </main>
 
@@ -70,93 +83,13 @@
 
     </div>
 
-    <script type="text/javascript">
-        // Инициализация карты Яндекса
-        ymaps.ready(init);
-        function init(){
-            const myMap = new ymaps.Map("map", {
-                center: [55.0084, 82.9346], // Новосибирск
-                zoom: 10,
-                controls: ['zoomControl']
-            });
-
-            // 1. КРАСНАЯ ЗОНА (ЦЕНТР)
-            const redZone = new ymaps.Polygon([
-                [
-                    [55.055, 82.880],
-                    [55.055, 82.990],
-                    [54.985, 82.990],
-                    [54.985, 82.880],
-                    [55.055, 82.880]
-                ]
-            ], {}, {
-                fillColor: '#ff0000',
-                fillOpacity: 0.45,
-                strokeColor: '#ff0000',
-                strokeWidth: 2
-            });
-
-            // 2. ЖЕЛТАЯ ЗОНА (ТОЛМАЧЕВО)
-            const yellowZone = new ymaps.Polygon([
-                [
-                    [55.120, 82.550],
-                    [55.120, 82.780],
-                    [54.920, 82.780],
-                    [54.920, 82.550],
-                    [55.120, 82.550]
-                ]
-            ], {}, {
-                fillColor: '#ffcc00',
-                fillOpacity: 0.4,
-                strokeColor: '#ffcc00',
-                strokeWidth: 2,
-                strokeStyle: 'dash'
-            });
-
-            // 3. ЗЕЛЕНАЯ ЗОНА (ЗАЕЛЬЦОВСКИЙ)
-            const greenZone = new ymaps.Polygon([
-                [
-                    [55.140, 82.850],
-                    [55.140, 82.960],
-                    [55.075, 82.960],
-                    [55.075, 82.850],
-                    [55.140, 82.850]
-                ]
-            ], {}, {
-                fillColor: '#00cc44',
-                fillOpacity: 0.4,
-                strokeColor: '#00cc44',
-                strokeWidth: 2
-            });
-
-            // Интерактивность при клике на зоны
-            redZone.events.add('click', function () {
-                document.getElementById('zone-title').innerText = 'Точка выбрана: Центр города';
-                document.getElementById('zone-desc').innerText = 'Полеты полностью ЗАПРЕЩЕНЫ. Высокая концентрация административных зданий и мест скопления людей.';
-                document.getElementById('zone-subdesc').innerText = 'Для полетов в этой зоне требуется специальное разрешение от Администрации города и ФСО.';
-                document.getElementById('zone-tag').innerText = '#Нельзя_летать_центр_запрещен';
-            });
-
-            yellowZone.events.add('click', function () {
-                document.getElementById('zone-title').innerText = 'Точка выбрана: Толмачево';
-                document.getElementById('zone-desc').innerText = 'Действует режим ОГРАНИЧЕНИЙ. Приаэродромная территория гражданской авиации.';
-                document.getElementById('zone-subdesc').innerText = 'Полеты возможны только при подаче официального полетного плана в Единую систему ОрВД РФ за 5 дней.';
-                document.getElementById('zone-tag').innerText = '#Ограничения_аэропорт_согласование';
-            });
-
-            greenZone.events.add('click', function () {
-                document.getElementById('zone-title').innerText = 'Точка выбрана: Заельцовский';
-                document.getElementById('zone-desc').innerText = 'Рекомендованная ЗОНА ОТКРЫТОГО НЕБА для хобби и тренировок.';
-                document.getElementById('zone-subdesc').innerText = 'Разрешены свободные визуальные полеты БВС массой до 150 грамм на высоте до 150 метров от земли.';
-                document.getElementById('zone-tag').innerText = '#Можно_летать_без_согласования';
-            });
-
-            // Добавляем зоны на карту
-            myMap.geoObjects.add(redZone);
-            myMap.geoObjects.add(yellowZone);
-            myMap.geoObjects.add(greenZone);
+    <script>
+        function selectZone(title, desc, subdesc, tag) {
+            document.getElementById('zone-title').innerText = 'Точка выбрана: ' + title;
+            document.getElementById('zone-desc').innerText = desc;
+            document.getElementById('zone-subdesc').innerText = subdesc;
+            document.getElementById('zone-tag').innerText = tag;
         }
     </script>
 </body>
 </html>
-
