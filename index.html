@@ -11,13 +11,12 @@
 
         <div class="search-bar-container">
             <span class="search-field-icon">🔍</span>
-            <input type="text" id="search-input" placeholder="Поиск по адресу или координатам" class="map-search-input" value="Новосибирск, Красный проспект">
+            <input type="text" placeholder="Поиск по адресу или координатам" class="map-search-input" value="Новосибирск, Красный проспект">
         </div>
 
         <section class="side-panel-left">
             
             <div class="card logo-card">
-                <h2>DRONE MAP NSK</h2>
                 <p>Карта зон для полетов по Новосибирску</p>
             </div>
 
@@ -39,13 +38,9 @@
 
         <main class="center-map-area">
             <div class="map-viewport-box">
-                <!-- Реальная, работающая живая карта Новосибирска -->
-                <iframe src="https://yandex.ru" class="yandex-map-frame" frameborder="0" allowfullscreen="true"></iframe>
-                
-                <!-- Интерактивные кликабельные слои для вывода информации в правую панель -->
-                <div class="map-overlay-zone zone-center-click" onclick="updateInfo('Точка выбрана: Центр города', 'Полеты полностью ЗАПРЕЩЕНЫ. Высокая концентрация административных зданий и мест скопления людей.', 'Для полетов в этой зоне требуется специальное разрешение от Администрации города и ФСО.', '#Нельзя_летать_центр_запрещен')" title="Центр города"></div>
-                <div class="map-overlay-zone zone-tolmachevo-click" onclick="updateInfo('Точка выбрана: Толмачево', 'Действует режим ОГРАНИЧЕНИЙ. Приаэродромная территория гражданской авиации.', 'Полеты возможны только при подаче официального полетного плана в Единую систему ОрВД РФ за 5 дней.', '#Ограничения_аэропорт_согласование')" title="Толмачево"></div>
-                <div class="map-overlay-zone zone-zaelcovsky-click" onclick="updateInfo('Точка выбрана: Заельцовский', 'Рекомендованная ЗОНА ОТКРЫТОГО НЕБА для хобби и тренировок.', 'Разрешены свободные визуальные полеты БВС массой до 150 грамм на высоте до 150 метров от земли.', '#Можно_летать_без_согласования')" title="Заельцовский бор"></div>
+                <div class="map-placeholder-content">
+                    <span>Интерактивная карта отключена</span>
+                </div>
             </div>
         </main>
 
@@ -56,15 +51,15 @@
             </div>
 
             <div class="info-body-block">
-                <p class="info-status-text" id="zone-title">Точка выбранна/нет</p>
-                <p class="info-subtext" id="zone-desc">Нажмите на карту или найдите адрес (если нет)</p>
+                <p class="info-status-text">Точка выбранна/нет</p>
+                <p class="info-subtext">Нажмите на карту или найдите адрес</p>
                 
                 <hr class="separator-line">
                 
                 <p class="info-status-text">Информация о выбранной зоне</p>
-                <p class="info-subtext" id="zone-subdesc">Выберите зону, чтобы узнать подробнее</p>
+                <p class="info-subtext">Выберите зону, чтобы узнать подробнее</p>
                 
-                <div class="reason-hashtag" id="zone-tag">
+                <div class="reason-hashtag">
                     #можно ли летать, если нет, то причина
                 </div>
             </div>
@@ -72,24 +67,8 @@
         </aside>
 
     </div>
-
-    <script>
-        function updateInfo(title, desc, subdesc, tag) {
-            document.getElementById('zone-title').innerText = title;
-            document.getElementById('zone-desc').innerText = desc;
-            document.getElementById('zone-subdesc').innerText = subdesc;
-            document.getElementById('zone-tag').innerText = tag;
-        }
-
-        document.getElementById('search-input').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                const query = encodeURIComponent(this.value);
-                const iframe = document.querySelector('.yandex-map-frame');
-                iframe.src = `https://yandex.ru{query}&z=12&l=map`;
-            }
-        });
-    </script>
 </body>
 </html>
+
 
 
