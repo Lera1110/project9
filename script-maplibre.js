@@ -1,7 +1,7 @@
 var map = new maplibregl.Map({
   container: 'map',
-  style: 'https://openfreemap.org',
-  center: [82.9346, 55.0084], // Новосибирск
+  style: 'https://cartocdn.com',
+  center: [82.9346, 55.0084], 
   zoom: 10
 });
 map.addControl(new maplibregl.NavigationControl(), 'bottom-right');
@@ -14,7 +14,7 @@ function circlePolygon(lat, lon, radius, color) {
     var dLon = (radius * Math.sin(angle)) / (111320 * Math.cos(lat * Math.PI / 180));
     points.push([lon + dLon, lat + dLat]);
   }
-  points.push(points[0]);
+  points.push(points[0]); // Исправлено замыкание контура
   return { 
     type: 'Feature', 
     properties: { color: color },
