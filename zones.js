@@ -16,14 +16,11 @@ var airports = [
 var COLORS = { red: "#ef4444", yellow: "#f59e0b" };
 
 function distanceMeters(lat1, lon1, lat2, lon2) {
-var r = 6371000;
-var rad = Math.PI / 180;
-var dLat = (lat2 - lat1) * rad;
-var dLon = (lon2 - lon1) * rad;
-var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-Math.cos(lat1 * rad) * Math.cos(lat2 * rad) *
-Math.sin(dLon / 2) * Math.sin(dLon / 2);
-return 2 * r * Math.asin(Math.sqrt(a));
+var metersPerDegree = 111200;
+var midLat = (lat1 + lat2) / 2 * Math.PI / 180;
+var dy = (lat2 - lat1) * metersPerDegree;
+var dx = (lon2 - lon1) * metersPerDegree * Math.cos(midLat);
+return Math.sqrt(dx * dx + dy * dy);
 }
 
 function checkPoint(lat, lon) {

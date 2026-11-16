@@ -14,7 +14,7 @@ function circlePolygon(lat, lon, radius, color) {
 var points = [];
 for (var i = 0; i < 64; i++) {
 var angle = (i / 64) * 2 * Math.PI;
-var dLat = (radius * Math.cos(angle)) / 111320;
+var dLat = (radius * Math.cos(angle)) / 111200;
 var dLon = (radius * Math.sin(angle)) /
 (111320 * Math.cos(lat * Math.PI / 180));
 points.push([lon + dLon, lat + dLat]);
